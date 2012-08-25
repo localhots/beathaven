@@ -1,0 +1,15 @@
+development: &defaults
+  adapter: postgresql
+  encoding: unicode
+  database: beathaven_development
+  pool: 5
+  username: beathaven
+  password: beathaven
+
+test:
+  <<: *defaults
+  database: beathaven_test
+
+production:
+  <<: *defaults
+  database: beathaven_production
