@@ -1,0 +1,132 @@
+.artist-page {
+  h1 {
+    font-family: Lobster, Georgia, serif;
+    font-size: 42px;
+    line-height: 64px;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
+  }
+
+  .artist-info {
+    min-height: 250px;
+    margin-bottom: 50px;
+
+    .pic {
+      float: left;
+
+      img {
+        width: 250px;
+        height: 250px;
+        border-size: 1px;
+        border-style: solid;
+        border-color: rgba(255, 255, 255, .2);
+        border-radius: 5px;
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
+      }
+    }
+    .bio {
+      margin-left: 270px;
+      font-family: "Source Sans Pro", Helvetica, sans-serif;
+      font-size: 22px;
+      line-height: 26px;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, .1);
+    }
+  }
+
+  .album {
+    min-height: 250px;
+    margin-bottom: 30px;
+
+    h2 {
+      font-family: Lobster, Georgia, Serif;
+      font-size: 26px;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
+    }
+    .pic {
+      float: left;
+      height: 300px;
+      text-align: center;
+
+      img {
+        background-color: #a0a0a0;
+        width: 250px;
+        height: 250px;
+        border-size: 1px;
+        border-style: solid;
+        border-color: rgba(255, 255, 255, .2);
+        border-radius: 5px;
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
+        margin-bottom: 10px;
+      }
+    }
+    .title {
+      margin-left: 270px;
+      margin-bottom: 10px;
+    }
+    .tracks {
+      margin-left: 270px;
+
+      tr:hover {
+        td {
+          background-color: rgba(200, 200, 200, .3);
+
+          .track-play i {
+            opacity: 1;
+          }
+          &.length {
+            .track-add {
+              display: block;
+            }
+            .length {
+              display: none;
+            }
+          }
+        }
+      }
+
+      td {
+        position: relative;
+        font-family: "Source Sans Pro", Helvetica, sans-serif;
+        font-size: 20px;
+        line-height: 28px;
+        text-shadow: 1px 1px 0 rgba(0, 0, 0, .1);
+
+        .btn-round {
+          width: 10px;
+          height: 22px;
+          border-radius: 50px;
+
+          i {
+            margin: 3px 0 0 -1px;
+          }
+        }
+      }
+
+      td.title {
+        padding-left: 40px;
+        .track-play {
+          position: absolute;
+          margin: -2px 0 0 -40px;
+
+          i {
+            opacity: .3;
+          }
+        }
+        .track-link {
+          color: #303030;
+        }
+      }
+
+      td.length {
+        text-align: right;
+
+        .track-add {
+          position: absolute;
+          right: 8px;
+          margin: -2px 0 0 0;
+          display: none;
+        }
+      }
+    }
+  }
+}

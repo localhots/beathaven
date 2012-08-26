@@ -1,3 +1,4 @@
 /config/database.yml
+/config/api_keys.yml
 /log/*.log
 /tmp

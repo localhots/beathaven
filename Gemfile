@@ -8,6 +8,7 @@ group :assets do
   gem "coffee-rails", "~> 3.2.1"
 
   gem "therubyracer", platforms: :ruby
+  gem "hogan_assets"
 
   gem "uglifier", ">= 1.0.3"
 end
@@ -21,3 +22,9 @@ gem "thin"
 
 # Deploy with Capistrano
 gem "capistrano"
+
+gem "robbie", path: "../robbie"
+gem "beatparser", path: "../beatparser"
+gem "rails-backbone"
+gem "eco"
+gem 'bootstrap-sass', '~> 2.0.4.0'
