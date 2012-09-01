@@ -33,6 +33,10 @@ class Album < ActiveRecord::Base
     end
   end
 
+  def url
+    "/album/#{id}"
+  end
+
   def dump_json
     Jbuilder.encode do |j|
       j.album_title title
@@ -42,8 +46,13 @@ class Album < ActiveRecord::Base
         j.track_id track.id
         j.track_title track.title
         j.track_duration track.duration
+        j.track_artists track.artists do |j, artist|
+          j.artist_title artist.name
+          j.artist_url artist.url
+        end
         j.track_disc track.disc_id
         j.track_position track.position
+        j.track_length track.length
         j.meta do |j|
           j.id track.id
           j.title track.title

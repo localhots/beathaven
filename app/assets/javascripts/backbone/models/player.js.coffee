@@ -72,4 +72,3 @@ class BeatHaven.Models.Player extends Backbone.Model
     return false if @move_it_mousedown
     percent = obj.position / obj.duration * 100
     $(".player .progress-bar .bar").css(width: "#{percent}%")
-

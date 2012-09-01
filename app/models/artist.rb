@@ -10,12 +10,17 @@ class Artist < ActiveRecord::Base
     pic? && bio?
   end
 
+  def url
+    "/artist/#{name.gsub(/\s/, "+")}"
+  end
+
   def dump_json
     Jbuilder.encode do |j|
       j.artist_title name
       j.artist_pic pic
       j.artist_bio bio
       j.artist_loaded loaded?
+      j.artist_url url
       j.artist_albums albums.shown.to_a do |j, album|
         j.album_title album.title
         j.album_year album.year
