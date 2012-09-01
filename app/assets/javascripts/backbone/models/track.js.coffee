@@ -6,6 +6,10 @@ class BeatHaven.Models.Track extends Backbone.Model
     else
       this.find_and_start()
 
+  pause: ->
+    BH.Player.pause()
+    this.node().addClass("paused")
+
   start: ->
     BH.Player.update_title(
       artists: @.get("artists")
@@ -14,7 +18,7 @@ class BeatHaven.Models.Track extends Backbone.Model
     unless @.get("sm_obj")?
       this.add_to_library(autoload: true, autoplay: false)
     BH.Player.play(this)
-    $(".artist-page .tracks li[data-id]").removeClass("now-playing")
+    $(".artist-page .tracks li[data-id]").removeClass("now-playing").removeClass("paused")
     this.node().addClass("now-playing")
 
   find_and_start: ->

@@ -3,6 +3,7 @@ class BeatHaven.Models.Player extends Backbone.Model
   playlist: null
   tracks: null
   current_track: null
+  move_it_mousedown: false
 
   initialize: ->
     @playlist = new BeatHaven.Collections.Tracklist()
@@ -15,11 +16,14 @@ class BeatHaven.Models.Player extends Backbone.Model
       else
         this.play_something()
     else
-      if @current_track?
-        @current_track.get("sm_obj").stop()
-        $(".player .progress-bar .bar").css(width: 0)
-      @current_track = track
-      @current_track.get("sm_obj").play()
+      if @current_track? and @current_track == track
+        @current_track.get("sm_obj").resume()
+      else
+        if @current_track?
+          @current_track.get("sm_obj").stop()
+          $(".player .progress-bar .bar").css(width: 0)
+        @current_track = track
+        @current_track.get("sm_obj").play()
       $(".player .controls .play").css(display: "none")
       $(".player .controls .pause").css(display: "inline-block")
 
@@ -28,6 +32,11 @@ class BeatHaven.Models.Player extends Backbone.Model
     @current_track.get("sm_obj").pause()
     $(".player .controls .play").css(display: "inline-block")
     $(".player .controls .pause").css(display: "none")
+
+  seek: (percent) ->
+    return false unless @current_track?
+    position = @current_track.get("duration") * 1000 * percent
+    @current_track.get("sm_obj").setPosition(position)
 
   next: ->
     return false unless @current_track?
@@ -56,9 +65,11 @@ class BeatHaven.Models.Player extends Backbone.Model
     $(".player .progress-bar .title").html("#{params.artists.join(', ')} &mdash; #{params.track}")
 
   update_buffer_bar: (event) ->
+    # not implemented
     false
 
   update_progress_bar: (obj) ->
+    return false if @move_it_mousedown
     percent = obj.position / obj.duration * 100
     $(".player .progress-bar .bar").css(width: "#{percent}%")
 

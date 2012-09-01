@@ -39,6 +39,18 @@
           opacity: 1;
         }
       }
+      &.paused {
+        .track-play {
+          display: block;
+
+          i {
+            opacity: 1;
+          }
+        }
+        .track-pause {
+          display: none;
+        }
+      }
     }
 
     .btn-round {
