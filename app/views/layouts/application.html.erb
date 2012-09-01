@@ -4,7 +4,11 @@
   <title>BeatHaven</title>
   <%= stylesheet_link_tag    "application", media: "all" %>
   <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "http://vkontakte.ru/js/api/openapi.js" %>
   <%= csrf_meta_tags %>
+  <script type="text/javascript" charset="utf-8">
+    window.VK_APP_ID = 2335068;
+  </script>
 </head>
 <body>
 
@@ -15,18 +19,10 @@
         <form class="navbar-search pull-left">
           <input type="search" placeholder="Search" class="search-query">
         </form>
-        <div class="player pull-right">
-          <div class="controls">
-            <a href="" class="btn btn-bh-dark prev"><i class="icon-backward icon-white"></i></a>
-            <a href="" class="btn btn-bh-dark pause"><i class="icon-pause icon-white"></i></a>
-            <a href="" class="btn btn-bh-dark next"><i class="icon-forward icon-white"></i></a>
-          </div>
-          <div class="progress-bar">
-            <div class="bar" style="width: 42%"></div>
-            <div class="title">Foo Fighters &mdash; Alone + Easy Target</div>
-            <div class="move-it"></div>
-          </div>
+        <div class="auth pull-right">
+          <a href=""><i class="icon-user icon-white"></i></a>
         </div>
+        <%= render partial: "player" %>
       </div>
     </div>
   </div>

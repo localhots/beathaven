@@ -7,6 +7,9 @@ BeatHaven::Application.routes.draw do
     resources :search, only: [] do
       collection { get :complete; get :wtfis }
     end
+    resources :session, only: [] do
+      collection { post :auth }
+    end
   end
 
   match "/:path" => "application#main", constraints: { path: /.*/ }

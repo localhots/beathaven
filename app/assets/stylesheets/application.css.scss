@@ -6,6 +6,7 @@
 @import "artist";
 @import "album-track";
 @import "player";
+@import "auth";
 
 @import url(http://fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700);
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
@@ -25,6 +26,10 @@ body {
   .navbar-inner {
     background: none;
     @include background-image(linear-gradient(rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, .4) 100%));
+
+    .container {
+      overflow: hidden;
+    }
   }
   a.brand {
     margin-top: 1px;

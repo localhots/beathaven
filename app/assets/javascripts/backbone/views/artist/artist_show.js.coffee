@@ -9,6 +9,6 @@ class BeatHaven.Views.ArtistShow extends Backbone.View
       for album_info in @model.get("artist_albums")
         for track_info in album_info.album_tracks
           track = new BeatHaven.Models.Track(track_info.meta)
-          BeatHaven.player.tracks.push(track)
+          BeatHaven.Player.tracks.push(track)
       $(@el).html(@template.render(@model.toJSON()))
     this

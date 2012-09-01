@@ -9,24 +9,32 @@ window.BeatHaven =
   Collections: {}
   Routers: {}
   Views: {}
-  player: null
+
+  Player: null
+  User: null
 
   init: ->
     new BeatHaven.Routers.Artist()
     new BeatHaven.Routers.Album()
     new BeatHaven.Routers.Search()
-    @player = new BeatHaven.Models.Player()
+    @Player = new BeatHaven.Models.Player()
+    @User = new BeatHaven.Models.User()
+    @VK = new BeatHaven.Models.VK()
+
+    @VK.init()
 
     Backbone.history.start(pushState: true);
     $("a").live "click", (e) ->
       if $(this).attr("href").substr(0, 1) == "/"
         e.preventDefault()
         Backbone.history.navigate($(this).attr("href"), true)
-        return false
-      else
-        alert "Window close attempt!"
-        return false
-      true
+      false
+
+  log: (data) ->
+    console.log data
 
 $ ->
   BeatHaven.init()
+
+# Setup shortcut
+window.BH = window.BeatHaven
