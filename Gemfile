@@ -11,12 +11,13 @@ group :assets do
   gem "hogan_assets"
 
   gem "uglifier", ">= 1.0.3"
+  gem "bourbon"
 end
 
 gem "jquery-rails"
 
 # To use Jbuilder templates for JSON
-# gem "jbuilder"
+gem "jbuilder"
 
 gem "thin"
 

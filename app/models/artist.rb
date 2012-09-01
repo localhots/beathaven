@@ -11,21 +11,39 @@ class Artist < ActiveRecord::Base
   end
 
   def dump_json
-    serialized = to_json(
-      include: {
-        albums: {
-          include: {
-            tracks: {
-              methods: [:length],
-              except: [:created_at, :updated_at, :rovi_id, :album_id]
-            }
-          },
-          except: [:created_at, :updated_at, :rovi_id, :pic],
-          methods: [:pic_safe]
-        }
-      },
-      except: [:created_at, :updated_at, :rovi_id],
-    )
+    Jbuilder.encode do |j|
+      j.artist_title name
+      j.artist_pic pic
+      j.artist_bio bio
+      j.artist_loaded loaded?
+      j.artist_albums albums.shown.to_a do |j, album|
+        j.album_title album.title
+        j.album_year album.year
+        j.album_pic album.pic_safe
+        j.album_tracks album.tracks.to_a do |j, track|
+          j.track_id track.id
+          j.track_title track.title
+          j.track_duration track.duration
+          j.track_disc track.disc_id
+          j.track_position track.position
+          j.meta do |j|
+            j.id track.id
+            j.title track.title
+            j.duration track.duration
+            j.length track.length
+            j.artists track.artists.map(&:name)
+            j.album album.title
+            j.album_pic album.pic_safe
+          end
+        end
+      end
+    end
+  end
+
+  def import
+    return unless rovi_id?
+
+    Artist.import(Robbie::Artist.find(rovi_id))
   end
 
   class << self
@@ -43,7 +61,7 @@ class Artist < ActiveRecord::Base
     end
 
     def import(rovi_artist)
-      data = BeatParser::Aggregator.new.combine(rovi_artist.id)
+      data = BeatParser::Aggregator.new.artist(rovi_artist.id)
       artist = Artist.find_or_create_by_rovi_id(data[:id])
       artist.update_attributes(
         name: data[:name],
@@ -83,6 +101,7 @@ class Artist < ActiveRecord::Base
         )
         ArtistGenre.find_or_create_by_artist_id_and_genre_id(artist.id, genre.id)
       end
+      artist
     end
   end
 end

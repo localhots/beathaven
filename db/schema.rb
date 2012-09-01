@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120826172120) do
+ActiveRecord::Schema.define(:version => 20120901111329) do
 
   create_table "albums", :force => true do |t|
     t.integer  "artist_id"
@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(:version => 20120826172120) do
     t.string   "title"
     t.integer  "year"
     t.string   "pic"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "is_hidden",  :default => false
   end
 
   create_table "artist_genres", :force => true do |t|

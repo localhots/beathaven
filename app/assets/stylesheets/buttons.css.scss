@@ -1,0 +1,28 @@
+.bh-underlay-blue, .bh-underlay-green {
+  @include inline-block;
+  border-color: transparent;
+  @include border-radius(4px);
+}
+.bh-underlay-blue {
+  background-color: #126be8;
+  background: url($light_blue_noise);
+}
+.bh-underlay-green {
+  background-color: #17ed25;
+  background: url($light_green_noise);
+}
+
+.btn-bh-dark, .btn-bh-light {
+  background-position: 0 0 !important;
+  color: #fafafa;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .35);
+  &:hover {
+    color: #ffffff;
+  }
+}
+.btn-bh-dark {
+  @include buttonBackground(rgba(0, 0, 0, .05), rgba(0, 0, 0, .15));
+}
+.btn-bh-light {
+  @include buttonBackground(rgba(255, 255, 255, .05), rgba(255, 255, 255, .15));
+}

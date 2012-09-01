@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.autocomplete
 //= require mustache
 //= require hogan
 //= require underscore
@@ -20,3 +21,4 @@
 //= require backbone_datalink
 //= require backbone/beat_haven
 //= require_tree .
+

@@ -3,5 +3,7 @@ lastfm:
   api_secret: secret
   client_name: BeatHaven
 rovi:
-  api_key: secret
-  api_secret: secret
+  meta_api_key: secret
+  meta_api_secret: secret
+  autocomplete_api_key: secret
+  autocomplete_api_secret: secret
