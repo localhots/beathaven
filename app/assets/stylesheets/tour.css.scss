@@ -1,0 +1,13 @@
+.tour .step {
+  display: none;
+}
+.tour .step-1 {
+  display: block;
+}
+.popover {
+  z-index: 99999;
+
+  p {
+    margin: 8px 0;
+  }
+}

@@ -6,6 +6,10 @@ class Artist < ActiveRecord::Base
 
   attr_accessible :bio, :is_group, :name, :pic, :rovi_id
 
+  scope :discography, lambda {
+    includes(:albums).includes(:tracks)
+  }
+
   def loaded?
     pic? && bio?
   end
@@ -14,47 +18,36 @@ class Artist < ActiveRecord::Base
     "/artist/#{name.gsub(/\s/, "+")}"
   end
 
-  def dump_json
-    Jbuilder.encode do |j|
-      j.artist_title name
-      j.artist_pic pic
-      j.artist_bio bio
-      j.artist_loaded loaded?
-      j.artist_url url
-      j.artist_albums albums.shown.to_a do |j, album|
-        j.album_title album.title
-        j.album_year album.year
-        j.album_pic album.pic_safe
-        j.album_tracks album.tracks.to_a do |j, track|
-          j.track_id track.id
-          j.track_title track.title
-          j.track_duration track.duration
-          j.track_disc track.disc_id
-          j.track_position track.position
-          j.meta do |j|
-            j.id track.id
-            j.title track.title
-            j.duration track.duration
-            j.length track.length
-            j.artists track.artists.map(&:name)
-            j.album album.title
-            j.album_pic album.pic_safe
-          end
-        end
-      end
-    end
-  end
-
   def import
     return unless rovi_id?
 
-    Artist.import(Robbie::Artist.find(rovi_id))
+    robbie_artist = Robbie::Artist.find(rovi_id)
+    return if robbie_artist.nil?
+
+    update_attributes(
+      name: robbie_artist.name,
+      is_group: robbie_artist.is_group,
+      pic: nil,
+      bio: nil,
+      albums: robbie_artist.albums.map{ |robbie_album|
+        Album.find_or_create_by_rovi_id(robbie_album.id).import
+      },
+      genres: robbie_artist.genres.map{ |robbie_genre|
+        genre = Genre.find_or_create_by_rovi_id(robbie_genre.id)
+        genre.update_attributes(
+          name: robbie_genre.name
+        )
+        genre
+      }
+    )
+
+    self
   end
 
   class << self
     def with_name(name)
       # DB lookup
-      artist = find_by_name(name)
+      artist = where(name: name).discography.first
       return artist unless artist.nil?
 
       # Rovi correction
@@ -62,51 +55,7 @@ class Artist < ActiveRecord::Base
       return artist if rovi_artist && artist = find_by_rovi_id(rovi_artist.id)
 
       # Parsing artist if ok
-      import(rovi_artist) if rovi_artist
-    end
-
-    def import(rovi_artist)
-      data = BeatParser::Aggregator.new.artist(rovi_artist.id)
-      artist = Artist.find_or_create_by_rovi_id(data[:id])
-      artist.update_attributes(
-        name: data[:name],
-        is_group: data[:is_group],
-        pic: data[:pic],
-        bio: data[:bio]
-      )
-      data[:albums].each do |album_meta|
-        album = Album.find_or_create_by_rovi_id(album_meta[:id])
-        album.update_attributes(
-          artist_id: artist.id,
-          title: album_meta[:title],
-          year: album_meta[:year].to_i
-        )
-        album_meta[:tracks].each do |track_meta|
-          track = Track.find_or_create_by_rovi_id(track_meta[:id])
-          track.update_attributes(
-            album_id: album.id,
-            disc_id: track_meta[:disc_id],
-            position: track_meta[:position],
-            title: track_meta[:title],
-            duration: track_meta[:duration]
-          )
-          track_meta[:artists].each do |performer|
-            performer_artist = Artist.find_or_create_by_rovi_id(performer[:id])
-            performer_artist.update_attributes(
-              name: performer[:name]
-            )
-            Performer.find_or_create_by_artist_id_and_track_id(performer_artist.id, track.id)
-          end
-        end
-      end
-      data[:genres].each do |genre_meta|
-        genre = Genre.find_or_create_by_rovi_id(genre_meta[:id])
-        genre.update_attributes(
-          name: genre_meta[:name]
-        )
-        ArtistGenre.find_or_create_by_artist_id_and_genre_id(artist.id, genre.id)
-      end
-      artist
+      Artist.create(rovi_id: robbie_artist.id).import
     end
   end
 end

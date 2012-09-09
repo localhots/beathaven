@@ -2,6 +2,7 @@ class BeatHaven.Models.VK extends Backbone.Model
 
   session_length: 3600 # seconds
   Music: null
+  BITMASK: 8
 
   popup: ->
     alert(1)
@@ -13,12 +14,13 @@ class BeatHaven.Models.VK extends Backbone.Model
     BH.VK.auth()
     # VK.Widgets.Like("vk-like", {type: "mini", height: 20, pageUrl: "http://beathaven.org/", text: "Like"})
 
-  auth: ->
+  auth: (callback) ->
     BH.log "Requesting new Vkontakte session ..."
     window.VK.Auth.getLoginStatus (response) ->
       BH.VK.auth_info(response)
+      callback() if callback?
       false
-    , 8
+    , window.BH.VK.BITMASK
     false
 
   auth_info: (response) ->
@@ -37,6 +39,7 @@ class BeatHaven.Models.VK extends Backbone.Model
         , expire_in + 1000
     else
       BH.log "Not authorized"
+
 
   set_favorites: ->
     window.VK.Api.call "audio.get", uid: BH.User.vk_id(), (response) ->

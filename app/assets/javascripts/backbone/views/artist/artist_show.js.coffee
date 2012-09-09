@@ -1,5 +1,5 @@
 class BeatHaven.Views.ArtistShow extends Backbone.View
-  template: HoganTemplates["backbone/templates/artist/show"]
+  template: HoganTemplates["artist/show"]
 
   initialize: ->
     @model.on("change", @render, this)

@@ -1,10 +1,8 @@
 module Api
-  class ArtistsController < ::ApplicationController
+  class ArtistsController < BaseController
     def show
-      artist = Artist.with_name(params[:id].gsub("+", " "))
-      return render json: { fail: true } if artist.nil?
-
-      render json: artist.dump_json
+      @artist = Artist.with_name(params[:id].gsub("+", " "))
+      return render json: { fail: true } if @artist.nil?
     end
   end
 end

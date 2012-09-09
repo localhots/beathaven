@@ -1,5 +1,5 @@
 module Api
-  class SessionController < ApplicationController
+  class SessionController < BaseController
 
     def auth
       render json: { error: "Signature verification failed!" } unless request_valid?

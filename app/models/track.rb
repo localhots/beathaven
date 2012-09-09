@@ -4,6 +4,9 @@ class Track < ActiveRecord::Base
   has_many :artists, through: :performers
 
   attr_accessible :album_id, :disc_id, :duration, :position, :rovi_id, :title
+  scope :with_artists, lambda{
+    includes(:artists)
+  }
 
   def length
     return if duration.nil?

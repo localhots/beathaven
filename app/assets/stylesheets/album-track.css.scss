@@ -59,7 +59,7 @@
       border-radius: 50px;
 
       i {
-        margin: 3px 0 0 -1px;
+        margin: 6px 0 0 -2px;
       }
     }
 
@@ -102,6 +102,7 @@
             margin: 0;
             padding: 0;
             color: #808080;
+            text-shadow: none;
 
             .artist-page {
               color: #808080;
@@ -132,6 +133,10 @@
       top: 3px;
       right: 5px;
       display: none;
+
+      i {
+        margin-left: -3px;
+      }
     }
 
     // li:hover

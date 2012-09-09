@@ -1,5 +1,5 @@
 module Api
-  class SearchController < ApplicationController
+  class SearchController < BaseController
     def complete
       return render json: { suggestions: [] } if params[:query].to_s.length == 0
 

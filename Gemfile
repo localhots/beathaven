@@ -16,6 +16,7 @@ group :assets do
   gem "bourbon"
   gem "bootstrap-sass", "~> 2.0.4.0"
   gem "soundmanager-rails"
+  gem "font-awesome-rails"
 end
 
 group :development do
@@ -25,8 +26,8 @@ group :development do
   gem "capistrano"
 end
 
-# To use Jbuilder templates for JSON
 gem "jbuilder"
+gem "haml"
 
 gem "robbie", path: "../robbie"
 gem "beatparser", path: "../beatparser"

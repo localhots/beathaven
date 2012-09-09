@@ -1,6 +1,6 @@
 BeatHaven::Application.routes.draw do
   namespace :api do
-    resources :artists, only: [:show], constraints: { id: /.+/ }
+    resources :artists, only: [:show], constraints: { id: /.+/ }, format: :json
     resources :albums, only: [:show, :picture] do
       member { get :picture }
     end

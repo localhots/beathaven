@@ -7,6 +7,6 @@ $ ->
     $(".player").animate(width: 518)
 
   window.desired = $(".navbar-search input").autocomplete
-    serviceUrl: "/api/search/complete"
+    serviceUrl: "/api/search/complete.json"
     onSelect: (selected) ->
       Backbone.history.navigate("/search/"+selected.replace(/\s/g, "+"), true)

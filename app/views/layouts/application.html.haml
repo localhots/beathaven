@@ -1,0 +1,26 @@
+!!!
+%html
+  %head
+    %title BeatHaven
+    = stylesheet_link_tag "application", media: "all"
+    = javascript_include_tag "application"
+    = javascript_include_tag "http://vkontakte.ru/js/api/openapi.js"
+    = csrf_meta_tags
+    :javascript
+      window.VK_APP_ID = 2335068;
+  %body
+
+    %div.navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.brand{ href: "/" } BeatHaven
+          %form.navbar-search.pull-left
+            %input.search-query{ type: "search", placeholder: "Search" }
+          .pull-right
+            %a.icon-cog.preferences{ href: "/preferences" }
+          = render partial: "player"
+
+    .container#main You can't steal what's free
+    .fullscreen
+    .tour
+    %div{ style: "font: 32px FontAwesome;"} &#024

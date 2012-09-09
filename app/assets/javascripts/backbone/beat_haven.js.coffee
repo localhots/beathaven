@@ -14,6 +14,7 @@ window.BeatHaven =
   User: null
 
   init: ->
+    new BeatHaven.Routers.Main()
     new BeatHaven.Routers.Artist()
     new BeatHaven.Routers.Album()
     new BeatHaven.Routers.Search()
@@ -21,7 +22,7 @@ window.BeatHaven =
     @User = new BeatHaven.Models.User()
     @VK = new BeatHaven.Models.VK()
 
-    @VK.init()
+    # @VK.init()
 
     Backbone.history.start(pushState: true);
     $("a").live "click", (e) ->
@@ -29,6 +30,8 @@ window.BeatHaven =
         e.preventDefault()
         Backbone.history.navigate($(this).attr("href"), true)
       false
+
+    # Backbone.history.navigate("/tour", true)
 
   log: (data) ->
     console.log data

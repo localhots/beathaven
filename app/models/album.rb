@@ -6,10 +6,10 @@ class Album < ActiveRecord::Base
     self
       .where('"albums"."year" > ?', 0)
       .where(is_hidden: false)
-      .joins(:tracks)
-      .group('"albums"."id"')
-      .having('count("tracks"."id") > ?', 0)
-      .order('"albums"."year" ASC')
+      .includes(:tracks)
+      # .group('"albums"."id"')
+      # .having('count("tracks"."id") > ?', 0)
+      # .order('"albums"."year" ASC')
   }
 
   attr_accessible :artist_id, :pic, :rovi_id, :title, :year, :is_hidden
@@ -24,7 +24,13 @@ class Album < ActiveRecord::Base
   end
 
   def load_pic
-    info = BeatParser::Sources::Lastfm.album_info((artist.nil? ? VA : artist.name), title)
+    info = begin
+      response = LastFM::Album.get_info(artist: (artist.nil? ? VA : artist.name), album: title)
+      { pic: response["album"]["image"][3]["#text"] }
+    rescue => e
+      { pic: nil }
+    end
+
     unless info[:pic].nil?
       update_attributes(pic: info[:pic])
       info[:pic]
@@ -37,69 +43,35 @@ class Album < ActiveRecord::Base
     "/album/#{id}"
   end
 
-  def dump_json
-    Jbuilder.encode do |j|
-      j.album_title title
-      j.album_year year
-      j.album_pic pic_safe
-      j.album_tracks tracks.to_a do |j, track|
-        j.track_id track.id
-        j.track_title track.title
-        j.track_duration track.duration
-        j.track_artists track.artists do |j, artist|
-          j.artist_title artist.name
-          j.artist_url artist.url
-        end
-        j.track_disc track.disc_id
-        j.track_position track.position
-        j.track_length track.length
-        j.meta do |j|
-          j.id track.id
-          j.title track.title
-          j.duration track.duration
-          j.length track.length
-          j.artists track.artists.map(&:name)
-          j.album title
-          j.album_pic pic_safe
-        end
-      end
-    end
-
-
-  end
-
   def import
     return unless rovi_id?
 
-    Album.import(Robbie::Album.find(rovi_id))
+    robbie_album = Robbie::Album.find(rovi_id)
+    return if robbie_album.nil?
+
+    update_attributes(
+      title: robbie_album.title,
+      year: robbie_album.year,
+      tracks: robbie_album.tracks.each { |robbie_track|
+        track = Track.find_or_create_by_rovi_id(robbie_track.id)
+        track.update_attributes(
+          disc_id: robbie_track.disc_id,
+          position: robbie_track.position,
+          title: robbie_track.title,
+          duration: robbie_track.duration,
+          artists: robbie_track.artists.map { |robbie_artist|
+            track_artist = Artist.find_or_create_by_rovi_id(robbie_artist.id)
+            track_artist.update_attributes(
+              name: robbie_artist.name
+            )
+            track_artist
+          }
+        )
+        track
+      }
+    )
+
+    self
   end
 
-  class << self
-    def import(rovi_album)
-      data = BeatParser::Aggregator.new.album(rovi_album.id)
-      album = Album.find_or_create_by_rovi_id(data[:id])
-      album.update_attributes(
-        title: data[:title],
-        year: data[:year].to_i
-      )
-      data[:tracks].each do |track_meta|
-        track = Track.find_or_create_by_rovi_id(track_meta[:id])
-        track.update_attributes(
-          album_id: album.id,
-          disc_id: track_meta[:disc_id],
-          position: track_meta[:position],
-          title: track_meta[:title],
-          duration: track_meta[:duration]
-        )
-        track_meta[:artists].each do |performer|
-          performer_artist = Artist.find_or_create_by_rovi_id(performer[:id])
-          performer_artist.update_attributes(
-            name: performer[:name]
-          )
-          Performer.find_or_create_by_artist_id_and_track_id(performer_artist.id, track.id)
-        end
-      end
-      album
-    end
-  end
 end
