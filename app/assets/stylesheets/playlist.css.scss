@@ -1,0 +1,33 @@
+.playlist {
+  display: block;
+  position: absolute;
+  top: 50px;
+  right: 50%;
+  width: 618px;
+  margin-right: -430px;
+  padding: 5px 0;
+  background-color: red;
+
+  li {
+    display: block;
+    overflow: hidden;
+
+    .inner {
+      width: 10000px;
+      margin-left: 5px;
+      height: 20px;
+      position: relative;
+
+      .artists {
+
+        &:after {
+          content: " — "
+        }
+      }
+      .length {
+        position: absolute;
+        left: 580px;
+      }
+    }
+  }
+}
