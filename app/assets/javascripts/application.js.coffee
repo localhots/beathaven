@@ -2,7 +2,7 @@
 #= require jquery_ujs
 #= require jquery.autocomplete
 
-#= require soundmanager
+# require soundmanager
 #= require vk_music
 
 #= require hogan
@@ -12,6 +12,7 @@
 #= require backbone_rails_sync
 #= require backbone_datalink
 #= require backbone/beat_haven
+#= require locale/en
 
 #= require bootstrap-dropdown
 #= require bootstrap-tooltip

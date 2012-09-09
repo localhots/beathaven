@@ -3,8 +3,10 @@
 #= require_tree ./models
 #= require_tree ./views
 #= require_tree ./routers
+#= require ./i18n
 
 window.BeatHaven =
+  Modules: {}
   Models: {}
   Collections: {}
   Routers: {}
@@ -12,6 +14,8 @@ window.BeatHaven =
 
   Player: null
   User: null
+  I18n: null
+  locales: {}
 
   init: ->
     new BeatHaven.Routers.Main()
@@ -21,6 +25,7 @@ window.BeatHaven =
     @Player = new BeatHaven.Models.Player()
     @User = new BeatHaven.Models.User()
     @VK = new BeatHaven.Models.VK()
+    @I18n = new BeatHaven.Modules.I18n()
 
     # @VK.init()
 
@@ -32,6 +37,7 @@ window.BeatHaven =
       false
 
     # Backbone.history.navigate("/tour", true)
+    @I18n.init()
 
   log: (data) ->
     console.log data

@@ -1,10 +1,10 @@
 .player.pull-right
   .controls
-    %a.icon-backward.prev{ href: "" }
-    %a.icon-play.play{ href: "" }
-    %a.icon-pause.pause{ href: "" }
-    %a.icon-forward.next{ href: "" }
+    %a.icon-backward.prev{ "href" => "", "data-translate-title" => "header.player.prev" }
+    %a.icon-play.play{ "href" => "", "data-translate-title" => "header.player.play" }
+    %a.icon-pause.pause{ "href" => "", "data-translate-title" => "header.player.pause" }
+    %a.icon-forward.next{ "href" => "", "data-translate-title" => "header.player.next" }
   .progress-bar
     .bar
-    .title Waiting...
+    .title{ "data-translate-contents" => "header.player.waiting" }
     .move-it

@@ -1,14 +1,18 @@
 .navbar {
   .preferences {
     margin: 14px 10px 0 15px;
-    font-size: 27px;
-    color: #e0e0e0;
-    text-shadow: 0 0 2px rgba(255, 255, 255, .6);
+
+    .toggle-button {
+      @include inline-block;
+      font-size: 22px;
+      color: #e0e0e0;
+      text-shadow: 0 0 2px rgba(255, 255, 255, .6);
       text-decoration: none;
 
       &:hover {
         color: #fafafa;
         text-shadow: 0 0 4px rgba(255, 255, 255, .9);
       }
+    }
   }
 }

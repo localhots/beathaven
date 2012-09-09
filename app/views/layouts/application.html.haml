@@ -15,9 +15,10 @@
         .container
           %a.brand{ href: "/" } BeatHaven
           %form.navbar-search.pull-left
-            %input.search-query{ type: "search", placeholder: "Search" }
+            %input.search-query{ "type" => "search", "data-translate-placeholder" => "header.search" }
           .pull-right
-            %a.icon-cog.preferences{ href: "/preferences" }
+            .preferences
+              %a.icon-cog.toggle-button{ "href" => "/preferences", "data-translate-title" => "header.preferences" }
           = render partial: "player"
 
     .container#main You can't steal what's free
