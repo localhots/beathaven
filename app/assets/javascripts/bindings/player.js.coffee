@@ -7,6 +7,8 @@ $ ->
     BH.Player.pause()
   $(".player .controls .next").live "click", (e) ->
     BH.Player.next()
+  $(".player .controls .playlist-toggle").live "click", (e) ->
+    $(".playlist").toggle()
 
   $(".player .move-it")
     .live "mousedown", (e) ->

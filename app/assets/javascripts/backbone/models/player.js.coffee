@@ -6,8 +6,12 @@ class BeatHaven.Models.Player extends Backbone.Model
   move_it_mousedown: false
 
   initialize: ->
-    @playlist = new BeatHaven.Collections.Tracklist()
+    @playlist = new BeatHaven.Modules.Playlist()
     @tracks = new BeatHaven.Collections.Tracklist()
+
+  #
+  # Actions
+  #
 
   play: (track) ->
     unless track?
@@ -60,6 +64,20 @@ class BeatHaven.Models.Player extends Backbone.Model
     nodes = $(".artist-page .tracks li[data-id]")
     return false unless nodes.length > 0
     @tracks.get(parseInt($(nodes[0]).data("id"), 10)).play()
+
+  #
+  # Playlist
+  #
+
+  add_track_to_playlist: (track) ->
+    @playlist.add(track).render()
+
+  remove_track_from_playlist: (track) ->
+    @playlist.remove(track).render()
+
+  #
+  # Supportive
+  #
 
   update_title: (params) ->
     $(".player .progress-bar .title").html("#{params.artists.join(', ')} &mdash; #{params.track}")

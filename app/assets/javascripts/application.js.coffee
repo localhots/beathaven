@@ -13,6 +13,7 @@
 #= require backbone_datalink
 #= require backbone/beat_haven
 #= require locale/en
+#= require locale/ru
 
 #= require bootstrap-dropdown
 #= require bootstrap-tooltip
