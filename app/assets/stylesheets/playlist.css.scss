@@ -1,9 +1,9 @@
 .playlist {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 41px;
   right: 50%;
-  width: 618px;
+  width: 578px;
   margin-right: -430px;
   padding: 7px 0 3px 0;
   background-color: #124ba8;
@@ -45,7 +45,7 @@
       }
       .length {
         position: absolute;
-        right: 9391px;
+        right: 9431px;
       }
     }
   }

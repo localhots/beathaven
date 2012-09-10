@@ -1,13 +1,13 @@
 .player {
-  width: 518px;
+  width: 467px;
 
   .controls {
     float: left;
-    margin: 3px 0 0 -96px;
+    margin: 1px 0 0 -109px;
 
     a {
       @include inline-block;
-      margin: 11px 2px 0 0;
+      margin: 11px 6px 0 0;
       font-size: 22px;
       color: #e0e0e0;
       text-shadow: 0 0 2px rgba(255, 255, 255, .6);
@@ -26,8 +26,8 @@
   .progress-bar {
     position: relative;
     width: 100%;
-    height: 26px;
-    margin: 8px 0 0;
+    height: 28px;
+    margin: 6px 0 0;
     background-color: rgba(0, 0, 0, .3);
     border: {
       style: solid;
@@ -40,7 +40,7 @@
     .bar {
       position: absolute;
       width: 0%;
-      height: 26px;
+      height: 28px;
       background-color: rgba(255, 255, 255, .1);
       @include box-shadow(inset 0 0 2px rgba(255, 255, 255, .2));
       @include border-radius(4px 0px 0px 4px);
@@ -52,7 +52,7 @@
         family: "Source Sans Pro", $helvetica;
         size: 14px;
       }
-      line-height: 24px;
+      line-height: 26px;
       color: #ffffff;
       text-shadow: 1px 1px 0 rgba(80, 80, 80, .4);
     }

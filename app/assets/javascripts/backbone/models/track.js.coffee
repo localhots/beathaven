@@ -15,9 +15,9 @@ class BeatHaven.Models.Track extends Backbone.Model
       artists: @.get("artists")
       track: @.get("title")
     )
-    # unless @.get("sm_obj")?
-    #   this.add_to_library(autoload: true, autoplay: false)
-    # BH.Player.play(this)
+    unless @.get("sm_obj")?
+      this.add_to_library(autoload: true, autoplay: false)
+    BH.Player.play(this)
     $(".artist-page .tracks li[data-id]").removeClass("now-playing").removeClass("paused")
     this.node().addClass("now-playing")
 

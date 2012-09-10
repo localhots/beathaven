@@ -1,10 +1,10 @@
 $ ->
   $(".navbar-search input").focus ->
-    $(this).animate(width: 249)
+    $(this).animate(width: 244)
     $(".player").animate(width: 368)
   $(".navbar-search input").blur ->
-    $(this).animate(width: 99)
-    $(".player").animate(width: 518)
+    $(this).animate(width: 133)
+    $(".player").animate(width: 467)
 
   window.desired = $(".navbar-search input").autocomplete
     serviceUrl: "/api/search/complete.json"

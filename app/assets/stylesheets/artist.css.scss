@@ -5,20 +5,19 @@
       weight: 700;
       size: 42px;
     }
-    line-height: 64px;
+    line-height: 48px;
     letter-spacing: 1px;
     text-shadow: 0 0 1px rgba(0, 0, 0, .3);
   }
 
   .artist-info {
-    min-height: 250px;
+    min-height: 300px;
     margin-bottom: 20px;
 
     .pic {
-      float: left;
 
       img {
-        width: 250px;
+        width: 100%;
         margin-top: 5px;
         border: {
           size: 1px;
@@ -30,7 +29,6 @@
       }
     }
     .bio {
-      margin-left: 270px;
       font-family: "Source Sans Pro", $helvetica;
       font-size: 22px;
       line-height: 26px;
@@ -46,19 +44,17 @@
       font: {
         family: "Lobster Two", $helvetica;
         weight: 700;
-        size: 26px;
+        size: 28px;
       }
+      margin: 5px 0;
       text-shadow: 0 0 1px rgba(0, 0, 0, .3);
     }
     .pic {
-      float: left;
-      height: 300px;
       text-align: center;
 
       img {
         background-color: #a0a0a0;
-        width: 250px;
-        height: 250px;
+        width: 100%;
         margin-top: 5px;
         border: {
           size: 1px;

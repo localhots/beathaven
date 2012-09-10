@@ -14,7 +14,7 @@ group :assets do
   gem "rails-backbone"
   gem "hogan_assets"
   gem "bourbon"
-  gem "bootstrap-sass", "~> 2.0.4.0"
+  gem "bootstrap-sass", "~> 2.1.0.0"
   gem "soundmanager-rails"
   gem "font-awesome-rails"
 end
@@ -29,5 +29,5 @@ end
 gem "jbuilder"
 gem "haml"
 
+gem "lastfm-client"
 gem "robbie", path: "../robbie"
-gem "beatparser", path: "../beatparser"

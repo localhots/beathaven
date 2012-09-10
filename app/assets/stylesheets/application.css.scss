@@ -9,7 +9,7 @@
 @import "album-track";
 @import "player";
 @import "playlist";
-@import "auth";
+@import "preferences";
 @import "popup";
 @import "tour";
 
@@ -27,6 +27,7 @@ body {
 .navbar {
   background-color: #0a3a82;
   background: url($blue_noise);
+  @include box-shadow(0 0 5px rgba(0, 0, 0, .5));
 
   .navbar-inner {
     background: none;
@@ -37,10 +38,11 @@ body {
     }
   }
   a.brand {
-    margin-top: 1px;
+    margin-top: -1px;
     font-family: "Lobster Two", $helvetica;
     font-style: italic;
     font-size: 24px;
+    line-height: 24px;
     color: #fafafa;
     letter-spacing: 1px;
     text-shadow: 1px 1px 0 rgba(255, 255, 255, .2);
@@ -51,11 +53,12 @@ body {
     }
   }
   .navbar-search {
-    margin-top: 8px;
+    margin: 6px;
 
     input {
-      width: 99px;
+      width: 133px;
       line-height: 16px;
+      color: #ffffff;
 
       border-color: rgba(0, 0, 0, .4);
       background-color: rgba(0, 0, 0, .3);

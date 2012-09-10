@@ -1,25 +1,24 @@
 .autocomplete-w1 {
-  margin: 10px 0 0 0;
-  width: 268px;
+  margin: 8px 0 0 0;
+  width: 274px;
   background: {
-    color: #f0f0f0;
-    color: rgba(240, 243, 246, .95);
+    color: #124ba8;
+    color: rgba(18, 75, 158, .95);
   }
   @include box-shadow(5px 14px 5px rgba(0, 0, 0, .15));
 
   .autocomplete {
+    max-height: 330px !important;
+
     div {
-      width: 258px;
+      width: 264px;
       padding: 5px 5px;
       border: {
         color: transparent;
         style: solid;
         width: 1px;
       }
-      background: {
-        color: #f0f0f0;
-        color: rgba(240, 243, 246, .95);
-      }
+      color: #f0f0f0;
 
       &:last-child {
         border-bottom: {
@@ -30,8 +29,7 @@
 
       &.selected {
         color: #ffffff;
-        background-color: #49AFCD;
-        background-color: rgba(73, 175, 205, .95);
+        background-color: rgba(255, 255, 255, .3);
         border-radius: 5px;
       }
     }

@@ -5,7 +5,6 @@
 #= require_tree ./collections
 #= require_tree ./views
 #= require_tree ./routers
-#= require ./i18n
 
 window.BeatHaven =
   Modules: {}
@@ -29,7 +28,7 @@ window.BeatHaven =
     @VK = new BeatHaven.Models.VK()
     @I18n = new BeatHaven.Modules.I18n()
 
-    # @VK.init()
+    @VK.init()
 
     Backbone.history.start(pushState: true);
     $("a").live "click", (e) ->
