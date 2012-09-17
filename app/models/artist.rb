@@ -3,16 +3,35 @@ class Artist < ActiveRecord::Base
   has_many :performers
   has_many :tracks, through: :performers
   has_many :artist_genres
+  has_many :artist_infos
   has_many :genres, through: :artist_genres
+  belongs_to :image # sick!
 
-  attr_accessible :bio, :is_group, :name, :pic, :rovi_id, :albums, :genres
+  attr_accessible :is_group, :name, :rovi_id, :albums, :genres, :image, :artist_infos
 
   scope :discography, lambda {
     includes(:albums).includes(:tracks)
   }
 
   def loaded?
-    pic? && bio?
+    image? && bio?
+  end
+
+  def update_image
+    self.image ||= Image.create
+    update_attributes(image: self.image.load_artist_pics(name))
+
+    image
+  end
+
+  def update_info
+    %w[ ru en ].each do |lang|
+      ArtistInfo.find_or_create_by_artist_id_and_lang(id, lang).import
+    end
+  end
+
+  def bio(lang = "en")
+    artist_infos.where(lang: lang.to_s).first.bio rescue ""
   end
 
   def url
@@ -41,6 +60,8 @@ class Artist < ActiveRecord::Base
         genre
       }
     )
+    update_info
+    update_image
 
     self
   end

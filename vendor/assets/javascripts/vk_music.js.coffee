@@ -14,13 +14,14 @@ class window.VkMusic
     query = this.prepareQuery artist, track
     if @query_results[query]? and not return_all
       callback @query_results[query]
-    that = this
-    VK.Api.call 'audio.search', q: query, (r) ->
-      results = that.range r.response, artist, track, duration
+    self = this
+    VK.Api.call 'audio.search', q: query, auto_complete: 1, sort: 2, (r) ->
+      results = r.response #self.range r.response, artist, track, duration
+      results.splice(0, 1)
       top_result = null
       if results.length > 0
         top_result = results[0].url
-      that.query_results[query] = results
+      self.query_results[query] = results
       callback if return_all then results else top_result
 
   range: (data, artist, track, duration) ->

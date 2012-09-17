@@ -1,6 +1,7 @@
 class Album < ActiveRecord::Base
   belongs_to :artist
   has_many :tracks
+  belongs_to :image # sick!
 
   scope :shown, lambda {
     self
@@ -12,7 +13,7 @@ class Album < ActiveRecord::Base
       # .order('"albums"."year" ASC')
   }
 
-  attr_accessible :artist_id, :pic, :rovi_id, :title, :year, :is_hidden, :tracks
+  attr_accessible :artist_id, :image, :rovi_id, :title, :year, :is_hidden, :tracks
   VA = "Various Artists"
 
   def pic_safe
@@ -27,20 +28,11 @@ class Album < ActiveRecord::Base
     pic_safe
   end
 
-  def load_pic
-    info = begin
-      response = LastFM::Album.get_info(artist: (artist.nil? ? VA : artist.name), album: title)
-      { pic: response["album"]["image"][3]["#text"] }
-    rescue => e
-      { pic: nil }
-    end
+  def update_image
+    self.image ||= Image.create
+    update_attributes(image: self.image.load_album_pic(artist.nil? ? VA : artist.name, title))
 
-    unless info[:pic].nil?
-      update_attributes(pic: info[:pic])
-      info[:pic]
-    else
-      "/assets/images/album-dummy.png"
-    end
+    image
   end
 
   def url

@@ -21,7 +21,7 @@ class BeatHaven.Models.Player extends Backbone.Model
         this.play_something()
     else
       if @current_track? and @current_track == track
-        @current_track.get("sm_obj").resume()
+        @current_track.get("sm_obj").play()
       else
         if @current_track?
           @current_track.get("sm_obj").stop()

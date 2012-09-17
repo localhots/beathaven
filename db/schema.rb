@@ -11,17 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120901191655) do
+ActiveRecord::Schema.define(:version => 20120917185417) do
 
   create_table "albums", :force => true do |t|
     t.integer  "artist_id"
     t.string   "rovi_id"
     t.string   "title"
     t.integer  "year"
-    t.string   "pic"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.boolean  "is_hidden",  :default => false
+    t.integer  "image_id"
   end
 
   create_table "artist_genres", :force => true do |t|
@@ -31,19 +31,32 @@ ActiveRecord::Schema.define(:version => 20120901191655) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "artist_infos", :force => true do |t|
+    t.integer  "artist_id"
+    t.string   "lang"
+    t.text     "bio"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "artists", :force => true do |t|
     t.string   "rovi_id"
     t.string   "name"
     t.boolean  "is_group"
-    t.text     "bio"
-    t.string   "pic"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "image_id"
   end
 
   create_table "genres", :force => true do |t|
     t.string   "rovi_id"
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "images", :force => true do |t|
+    t.text     "sizes"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
