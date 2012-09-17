@@ -1,6 +1,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery.autocomplete
+#= require jquery.neighbour
 
 #= require bootstrap-dropdown
 #= require bootstrap-tooltip

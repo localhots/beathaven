@@ -12,7 +12,7 @@ class Album < ActiveRecord::Base
       # .order('"albums"."year" ASC')
   }
 
-  attr_accessible :artist_id, :pic, :rovi_id, :title, :year, :is_hidden
+  attr_accessible :artist_id, :pic, :rovi_id, :title, :year, :is_hidden, :tracks
   VA = "Various Artists"
 
   def pic_safe
@@ -21,6 +21,10 @@ class Album < ActiveRecord::Base
     else
       "/api/albums/#{id}/picture"
     end
+  end
+
+  def pic_thumb
+    pic_safe
   end
 
   def load_pic
@@ -52,14 +56,14 @@ class Album < ActiveRecord::Base
     update_attributes(
       title: robbie_album.title,
       year: robbie_album.year,
-      tracks: robbie_album.tracks.each { |robbie_track|
+      tracks: robbie_album.tracks.map{ |robbie_track|
         track = Track.find_or_create_by_rovi_id(robbie_track.id)
         track.update_attributes(
           disc_id: robbie_track.disc_id,
           position: robbie_track.position,
           title: robbie_track.title,
           duration: robbie_track.duration,
-          artists: robbie_track.artists.map { |robbie_artist|
+          artists: robbie_track.artists.map{ |robbie_artist|
             track_artist = Artist.find_or_create_by_rovi_id(robbie_artist.id)
             track_artist.update_attributes(
               name: robbie_artist.name

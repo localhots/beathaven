@@ -1,7 +1,7 @@
-<div class="artist-page">
+<div class="artist-page single-album">
   <h1 class="title">{{album_title}} ({{album_year}})</h1>
-  <div class="album">
-    <div class="pic">
+  <div class="album row">
+    <div class="pic span3">
       <img src="{{album_pic}}" alt="{{album_title}}"><br>
       <div class="bh-underlay-blue">
         <a href="" class="btn btn-bh-dark album-add">
@@ -16,30 +16,32 @@
         </a>
       </div> -->
     </div>
-    <ul class="tracks">
-    {{#album_tracks}}
-      <li data-id="{{track_id}}">
-        <a href="" class="btn btn-round track-play" data-translate-title="artist.album.track.play" title="{{i18n_play}}">
-          <i class="icon-play"></i>
-        </a>
-        <a href="" class="btn btn-round track-pause" data-translate-title="artist.album.track.pause" title="{{i18n_pause}}">
-          <i class="icon-pause"></i>
-        </a>
-        <div class="title">
-          <div class="inner">
-            <a href="{{track_url}}" class="track-link">{{track_title}}</a>
-            <span class="delimiter">&mdash;</span>
-            <ul class="artists">
-            {{#track_artists}}<li><a href="{{artist_url}}" class="artist-page">{{artist_title}}</a></li>{{/track_artists}}
-            </ul>
+    <div class="span9">
+      <ul class="tracks">
+      {{#album_tracks}}
+        <li data-id="{{track_id}}">
+          <a href="" class="btn btn-round track-play" data-translate-title="artist.album.track.play" title="{{i18n_play}}">
+            <i class="icon-play"></i>
+          </a>
+          <a href="" class="btn btn-round track-pause" data-translate-title="artist.album.track.pause" title="{{i18n_pause}}">
+            <i class="icon-pause"></i>
+          </a>
+          <div class="title">
+            <div class="inner">
+              <a href="{{track_url}}" class="track-link">{{track_title}}</a>
+              <span class="delimiter">&mdash;</span>
+              <ul class="artists">
+              {{#track_artists}}<li><a href="{{artist_url}}" class="artist-page">{{artist_title}}</a></li>{{/track_artists}}
+              </ul>
+            </div>
           </div>
-        </div>
-        <span class="length">{{track_length}}</span>
-        <a href="" class="btn btn-round track-add" data-translate-title="artist.album.track.add" title="{{i18n_add}}">
-          <i class="icon-plus"></i>
-        </a>
-      </li>
-    {{/album_tracks}}
-    </ul>
+          <span class="length">{{track_length}}</span>
+          <a href="" class="btn btn-round track-add" data-translate-title="artist.album.track.add" title="{{i18n_add}}">
+            <i class="icon-plus"></i>
+          </a>
+        </li>
+      {{/album_tracks}}
+      </ul>
+    </div>
   </div>
 </div>

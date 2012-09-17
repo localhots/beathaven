@@ -18,7 +18,7 @@ json.album_tracks @album.tracks.to_a do |json, track|
     json.duration track.duration
     json.length track.length
     json.artists track.artists.map(&:name)
-    json.album title
-    json.album_pic pic_safe
+    json.album @album.title
+    json.album_pic @album.pic_thumb
   end
 end

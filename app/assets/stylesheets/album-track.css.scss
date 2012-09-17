@@ -162,3 +162,13 @@
     }
   }
 }
+
+.artist-page.single-album {
+    .tracks > li {
+      width: 705px;
+
+      .title {
+        max-width: 615px;
+      }
+    }
+  }

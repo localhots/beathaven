@@ -2,9 +2,10 @@ class Artist < ActiveRecord::Base
   has_many :albums
   has_many :performers
   has_many :tracks, through: :performers
+  has_many :artist_genres
   has_many :genres, through: :artist_genres
 
-  attr_accessible :bio, :is_group, :name, :pic, :rovi_id
+  attr_accessible :bio, :is_group, :name, :pic, :rovi_id, :albums, :genres
 
   scope :discography, lambda {
     includes(:albums).includes(:tracks)
@@ -15,7 +16,7 @@ class Artist < ActiveRecord::Base
   end
 
   def url
-    "/artist/#{name.gsub(/\s/, "+")}"
+    "/artist/#{name.gsub(/\s/, "+")}" rescue ""
   end
 
   def import

@@ -3,7 +3,7 @@ class Track < ActiveRecord::Base
   has_many :performers
   has_many :artists, through: :performers
 
-  attr_accessible :album_id, :disc_id, :duration, :position, :rovi_id, :title
+  attr_accessible :album_id, :disc_id, :duration, :position, :rovi_id, :title, :artists
   scope :with_artists, lambda{
     includes(:artists)
   }

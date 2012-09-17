@@ -28,6 +28,7 @@ class BeatHaven.Models.Track extends Backbone.Model
       self.start()
 
   add_to_library: (params) ->
+    self = this
     obj = soundManager.createSound
       id: @.get("id")
       url: @.get("url")
@@ -39,8 +40,10 @@ class BeatHaven.Models.Track extends Backbone.Model
         BH.Player.update_progress_bar(this)
       onfinish: ->
         BH.Player.next()
+        self.node().removeClass("now-playing").removeClass("paused")
       ondataerror: ->
         BH.Player.next()
+        self.node().removeClass("now-playing").removeClass("paused")
     @.set("sm_obj", obj)
 
   node: ->

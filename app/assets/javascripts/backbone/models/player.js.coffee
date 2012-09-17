@@ -47,18 +47,18 @@ class BeatHaven.Models.Player extends Backbone.Model
     if @playlist_on
       # not implemented
     else
-      nodes = @current_track.node().next()
-      return false unless nodes.length == 1
-      @tracks.get(parseInt($(nodes[0]).data("id"), 10)).play()
+      node = $(".tracks li.now-playing").neighbour(".tracks li", 1)
+      return false unless node?
+      @tracks.get(parseInt($(node).data("id"), 10)).play()
 
   prev: ->
     return false unless @current_track?
     if @playlist_on
       # not implemented
     else
-      nodes = @current_track.node().prev()
-      return false unless nodes.length == 1
-      @tracks.get(parseInt($(nodes[0]).data("id"), 10)).play()
+      node = $(".tracks li.now-playing").neighbour(".tracks li", -1)
+      return false unless node?
+      @tracks.get(parseInt($(node).data("id"), 10)).play()
 
   play_something: ->
     nodes = $(".artist-page .tracks li[data-id]")
