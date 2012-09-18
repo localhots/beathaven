@@ -17,8 +17,8 @@ class Album < ActiveRecord::Base
   VA = "Various Artists"
 
   def pic_safe
-    unless pic.nil?
-      pic
+    unless image.nil?
+      image.sized(:extralarge)
     else
       "/api/albums/#{id}/picture"
     end

@@ -1,6 +1,6 @@
 json.artist_title @artist.name
-json.artist_pic @artist.pic
-json.artist_bio @artist.bio
+json.artist_pic @artist.image.sized(:extralarge)
+json.artist_bio @artist.bio(@user.lang || "en")
 json.artist_loaded @artist.loaded?
 json.artist_url @artist.url
 json.artist_albums @artist.albums.shown.to_a do |json, album|

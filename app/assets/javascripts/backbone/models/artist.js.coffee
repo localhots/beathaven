@@ -1,2 +1,2 @@
-class BeatHaven.Models.Artist extends Backbone.Model
+class BeatHaven.Models.Artist extends BeatHaven.Modules.ProtectedModel
   urlRoot: "/api/artists"

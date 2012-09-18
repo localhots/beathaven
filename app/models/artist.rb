@@ -14,7 +14,7 @@ class Artist < ActiveRecord::Base
   }
 
   def loaded?
-    image? && bio?
+    true
   end
 
   def update_image

@@ -1,5 +1,7 @@
 module Api
   class SearchController < BaseController
+    before_filter :validate_request!
+
     def complete
       return render json: { suggestions: [] } if params[:query].to_s.length == 0
 
@@ -31,5 +33,6 @@ module Api
 
       render json: { found: nil }
     end
+
   end
 end

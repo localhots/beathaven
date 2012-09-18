@@ -2,7 +2,7 @@ class BeatHaven.Models.User extends Backbone.Model
 
   auth: ->
     BH.log "Authenticating user ..."
-    this.query "/api/session/auth", {}, (response) ->
+    this.query "/api/session/auth", { user: @.get("vk_session")["user"] }, (response) ->
       if response.error?
         # report error
       else
@@ -12,10 +12,19 @@ class BeatHaven.Models.User extends Backbone.Model
           # BH.VK.set_favorites()
 
   query: (path, params, callback) ->
-    query_params = $.extend {}, @.get("vk_session"), params
+    query_params = $.extend {}, @auth_params(), params
     query_params.authenticity_token = $('meta[name="csrf-token"]').attr("content")
-    $.post path, query_params, callback
+    $.get path, query_params, callback
     false
+
+  auth_params: ->
+    params = @.get("vk_session")
+    vk_auth:
+      expire: params["expire"]
+      mid: params["mid"]
+      secret: params["secret"]
+      sid: params["sid"]
+      sig: params["sig"]
 
   set_favorites: (tracks) ->
     BH.log tracks

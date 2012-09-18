@@ -8,7 +8,7 @@ BeatHaven::Application.routes.draw do
       collection { get :complete; get :wtfis }
     end
     resources :session, only: [] do
-      collection { post :auth }
+      collection { get :auth }
     end
   end
 
